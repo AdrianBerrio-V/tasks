@@ -6,11 +6,20 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.tasks.navigate.AppRoute
+import com.example.tasks.navigate.Screen
+import com.example.tasks.screens.LoginScreen
+import com.example.tasks.screens.MainScreenWithBottomNav
 import com.example.tasks.ui.theme.TasksTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +28,28 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TasksTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Adrian",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppNavigation()
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun AppNavigation() {
+    val navController = rememberNavController()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TasksTheme {
-        Greeting("Android")
+    NavHost(navController = navController, startDestination = AppRoute.Login.route) {
+        composable(AppRoute.Login.route) {
+            LoginScreen(navController = navController) {
+                //ToDo function to validate login success
+                navController.navigate(AppRoute.MainContent.route) {
+                    popUpTo(Screen.Login.route) {inclusive = true}
+                }
+            }
+        }
+        composable(AppRoute.MainContent.route) {
+            MainScreenWithBottomNav(rootNavController = navController)
+        }
     }
 }
