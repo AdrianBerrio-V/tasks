@@ -5,6 +5,7 @@ import com.example.tasks.R
 sealed class AppRoute(val route:String) {
     object Login : AppRoute("login_screen")
     object MainContent : AppRoute("main_content_screen")
+    object Register : AppRoute("register_screen")
 }
 
 
