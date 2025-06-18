@@ -1,14 +1,18 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,7 +45,7 @@ fun TaskManagerScreen() {
     ) {
 
         Text(
-            text = "Hello, Alex",
+            text = "Hola, Alex",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 24.dp)
@@ -76,35 +80,12 @@ fun TaskManagerScreen() {
         Spacer(modifier = Modifier.height(24.dp))
 
         // Add Task Button
-        Button(
-            onClick = {
-                // Acción para agregar nueva tarea
-                val newTask = Task(
-                    id = tasks.size + 1,
-                    title = "Nueva Tarea ${tasks.size + 1}"
-                )
-                tasks = tasks + newTask
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFE3F2FD)
-            )
-        ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "Add Task",
-                tint = Color(0xFF1976D2),
-                modifier = Modifier.size(20.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Add Task",
-                color = Color(0xFF1976D2),
-                fontWeight = FontWeight.Medium
-            )
-        }
+        ExtendedFloatingActionButton(
+            onClick = {/*ToDo Navegacion a añadir tarea*/},
+            icon = {Icon(Icons.Filled.Add, "Agregar tarea")},
+            text = { Text(text = "Agg Tarea")},
+            containerColor = Color(0xFFC7DEF8)
+        )
     }
 }
 
@@ -116,13 +97,17 @@ fun TaskItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(vertical = 3.dp)
+            .height(60.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color(0xFFD3D3D3)),
+        verticalAlignment = Alignment.CenterVertically,
+
     ) {
         Text(
             text = task.title,
             fontSize = 16.sp,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f).padding(start = 3.dp)
         )
 
         Checkbox(
