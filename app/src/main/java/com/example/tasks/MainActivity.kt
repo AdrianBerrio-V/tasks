@@ -20,6 +20,7 @@ import com.example.tasks.navigate.AppRoute
 import com.example.tasks.navigate.Screen
 import com.example.tasks.screens.LoginScreen
 import com.example.tasks.screens.MainScreenWithBottomNav
+import com.example.tasks.screens.RegisterScreen
 import com.example.tasks.ui.theme.TasksTheme
 
 class MainActivity : ComponentActivity() {
@@ -50,6 +51,13 @@ fun AppNavigation() {
         }
         composable(AppRoute.MainContent.route) {
             MainScreenWithBottomNav(rootNavController = navController)
+        }
+        composable(AppRoute.Register.route) {
+            RegisterScreen(navController = navController) {
+                navController.navigate(AppRoute.MainContent.route) {
+                    popUpTo(AppRoute.Login.route) { inclusive = true }
+                }
+            }
         }
     }
 }

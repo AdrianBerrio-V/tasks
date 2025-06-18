@@ -13,13 +13,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -27,8 +25,10 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,23 +40,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tasks.R
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import com.example.tasks.navigate.AppRoute
 
 @Preview(showBackground = true)
 @Composable
-fun LoginPreview() {
-    //LoginScreen(onLoginSuccess = {})
+fun registerPreview() {
+    //RegisterScreen(onRegisterSuccess = {})
 }
 
 
 @Composable
-fun LoginScreen(navController: NavController, onLoginSuccess : () -> Unit){
-
+fun RegisterScreen(navController: NavController, onRegisterSuccess: () -> Unit){
+    var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var confirmPasswordVisible by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -67,9 +67,26 @@ fun LoginScreen(navController: NavController, onLoginSuccess : () -> Unit){
     ) {
         // Título
         Text(
-            text = "Iniciar Sesión",
+            text = "Crear Cuenta",
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(bottom = 32.dp)
+        )
+
+        // Campo de nombre
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it },
+            label = { Text("Nombre completo") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "Name"
+                )
+            }
         )
 
         // Campo de email
@@ -98,7 +115,7 @@ fun LoginScreen(navController: NavController, onLoginSuccess : () -> Unit){
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 24.dp),
+                .padding(bottom = 16.dp),
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Lock,
@@ -108,20 +125,51 @@ fun LoginScreen(navController: NavController, onLoginSuccess : () -> Unit){
             trailingIcon = {
                 val image = if (passwordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(painter = painterResource(image), contentDescription = if (passwordVisible) "Ocultar contraseña" else "Mostrar contraseña",
-                        modifier = Modifier.size(23.dp))
+                    Icon(
+                        painter = painterResource(id = image),
+                        contentDescription = if (passwordVisible) "Ocultar contraseña" else "Mostrar contraseña",
+                        modifier = Modifier.size(20.dp)
+                    )
                 }
             }
         )
 
-        // Botón de login
+        // Campo de confirmar contraseña
+        OutlinedTextField(
+            value = confirmPassword,
+            onValueChange = { confirmPassword = it },
+            label = { Text("Confirmar contraseña") },
+            visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Lock,
+                    contentDescription = "Confirm Password"
+                )
+            },
+            trailingIcon = {
+                val image = if (confirmPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
+                IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
+                    Icon(
+                        painter = painterResource(id = image),
+                        contentDescription = if (confirmPasswordVisible) "Ocultar contraseña" else "Mostrar contraseña",
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
+        )
+
+        // Botón de registro
         Button(
-            onClick = { navController.navigate(AppRoute.MainContent.route) }, //ToDo pilas que se debe crear la funcion
+            onClick = { navController.navigate(AppRoute.MainContent.route) }, //ToDo Pilas que se debe hacer la funcion
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)
         ) {
-            Text("Iniciar Sesión")
+            Text("Crear Cuenta")
         }
 
         // Divisor
@@ -142,7 +190,7 @@ fun LoginScreen(navController: NavController, onLoginSuccess : () -> Unit){
 
         // Botón de Google
         OutlinedButton(
-            onClick = { /* ToDo Login with google */ },
+            onClick = { /* Lógica de registro con Google */ },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)
@@ -154,20 +202,19 @@ fun LoginScreen(navController: NavController, onLoginSuccess : () -> Unit){
                 tint = Color.Unspecified
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text("Continuar con Google")
+            Text("Registrarse con Google")
         }
 
-        // Texto de registro
+        // Texto de login
         Row(
             modifier = Modifier.padding(top = 24.dp)
         ) {
-            Text("¿No tienes cuenta? ")
+            Text("¿Ya tienes cuenta? ")
             Text(
-                text = "Regístrate",
+                text = "Inicia sesión",
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable { navController.navigate(AppRoute.Register.route) }
+                modifier = Modifier.clickable { navController.navigate(AppRoute.Login.route) }
             )
         }
     }
-
 }
