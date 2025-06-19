@@ -1,6 +1,8 @@
 package com.example.tasks.screens
 
 import HomeScreen
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -19,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.calendar.CalendarScreen
 import com.example.tasks.navigate.BottomNavItem
 
 @Preview
@@ -28,6 +31,7 @@ fun MainPreview() {
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreenWithBottomNav(rootNavController: NavController? = null) { // Recibe el NavController principal
     val bottomNavController = rememberNavController() // NavController para la Bottom Navigation
@@ -59,7 +63,7 @@ fun MainScreenWithBottomNav(rootNavController: NavController? = null) { // Recib
     ) { innerPadding ->
         NavHost(
             navController = bottomNavController,
-            startDestination = BottomNavItem.Home.route, // Define la pestaña inicial
+            startDestination = BottomNavItem.Calendar.route, // Define la pestaña inicial
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(BottomNavItem.Home.route) { HomeScreen() }
