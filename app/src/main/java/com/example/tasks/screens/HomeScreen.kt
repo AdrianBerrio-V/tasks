@@ -33,7 +33,20 @@ fun HomeScreen() {
                 Task(1, "Morning Workout"),
                 Task(2, "Grocery Shopping"),
                 Task(3, "Project Meeting"),
-                Task(4, "Dinner with Friends")
+                Task(4, "Dinner with Friends"),
+                Task(5,"comer comida comestible"),
+                Task(1, "Morning Workout"),
+                Task(2, "Grocery Shopping"),
+                Task(3, "Project Meeting"),
+                Task(4, "Dinner with Friends"),
+                Task(1, "Morning Workout"),
+                Task(2, "Grocery Shopping"),
+                Task(3, "Project Meeting"),
+                Task(4, "Dinner with Friends"),
+                Task(1, "Morning Workout"),
+                Task(2, "Grocery Shopping"),
+                Task(3, "Project Meeting"),
+                Task(4, "Dinner with Friends"),
             )
         )
     }
@@ -77,8 +90,12 @@ fun HomeScreen() {
             }
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
-
+        Spacer(Modifier.height(10.dp))
+    }
+    Box(
+        modifier = Modifier.fillMaxSize().padding(15.dp),
+        contentAlignment = Alignment.BottomEnd
+    ){
         // Add Task Button
         ExtendedFloatingActionButton(
             onClick = {/*ToDo Navegacion a añadir tarea*/},
@@ -87,6 +104,7 @@ fun HomeScreen() {
             containerColor = Color(0xFFC7DEF8)
         )
     }
+
 }
 
 @Composable
@@ -107,7 +125,9 @@ fun TaskItem(
         Text(
             text = task.title,
             fontSize = 16.sp,
-            modifier = Modifier.weight(1f).padding(start = 3.dp)
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 3.dp)
         )
 
         Checkbox(
