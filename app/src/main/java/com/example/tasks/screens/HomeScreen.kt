@@ -89,8 +89,6 @@ fun HomeScreen() {
                 )
             }
         }
-
-        Spacer(Modifier.height(10.dp))
     }
     Box(
         modifier = Modifier.fillMaxSize().padding(15.dp),
