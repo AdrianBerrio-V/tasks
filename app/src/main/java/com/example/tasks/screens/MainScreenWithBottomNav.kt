@@ -63,7 +63,7 @@ fun MainScreenWithBottomNav(rootNavController: NavController? = null) { // Recib
     ) { innerPadding ->
         NavHost(
             navController = bottomNavController,
-            startDestination = BottomNavItem.Calendar.route, // Define la pestaña inicial
+            startDestination = BottomNavItem.Home.route, // Define la pestaña inicial
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(BottomNavItem.Home.route) { HomeScreen() }

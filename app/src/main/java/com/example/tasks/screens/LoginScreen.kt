@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -47,12 +48,12 @@ import com.example.tasks.navigate.AppRoute
 @Preview(showBackground = true)
 @Composable
 fun LoginPreview() {
-    //LoginScreen(onLoginSuccess = {})
+    LoginScreen(onLoginSuccess = {})
 }
 
 
 @Composable
-fun LoginScreen(navController: NavController, onLoginSuccess : () -> Unit){
+fun LoginScreen(navController: NavController?= null, onLoginSuccess : () -> Unit){
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -116,10 +117,11 @@ fun LoginScreen(navController: NavController, onLoginSuccess : () -> Unit){
 
         // Botón de login
         Button(
-            onClick = { navController.navigate(AppRoute.MainContent.route) }, //ToDo pilas que se debe crear la funcion
+            onClick = { /*navController.navigate(AppRoute.MainContent.route)*/ }, //ToDo pilas que se debe crear la funcion
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(48.dp),
+            bac
         ) {
             Text("Iniciar Sesión")
         }
@@ -165,7 +167,7 @@ fun LoginScreen(navController: NavController, onLoginSuccess : () -> Unit){
             Text(
                 text = "Regístrate",
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable { navController.navigate(AppRoute.Register.route) }
+                modifier = Modifier.clickable { /*navController.navigate(AppRoute.Register.route)*/ }
             )
         }
     }
