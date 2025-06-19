@@ -26,7 +26,7 @@ data class Task(
 )
 
 @Composable
-fun TaskManagerScreen() {
+fun HomeScreen() {
     var tasks by remember {
         mutableStateOf(
             listOf(
@@ -126,5 +126,5 @@ fun TaskItem(
 @Preview(showBackground = true)
 @Composable
 fun TaskManagerScreenPreview() {
-    TaskManagerScreen()
+    HomeScreen()
 }
