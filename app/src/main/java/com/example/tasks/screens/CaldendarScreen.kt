@@ -20,11 +20,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.tasks.R
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.YearMonth
@@ -55,7 +57,7 @@ fun CalendarScreen() {
                 Task(
                     title = "Meeting with Alex",
                     time = LocalTime.of(10, 0),
-                    date = LocalDate.of(2025, 6, 18)
+                    date = LocalDate.of(2025, 6, 24)
                 ),
                 Task(
                     title = "Project Review",
@@ -234,8 +236,8 @@ fun CalendarDay(
             .clip(CircleShape)
             .background(
                 when {
-                    isSelected -> MaterialTheme.colorScheme.primary
-                    isToday -> MaterialTheme.colorScheme.primaryContainer
+                    isSelected -> colorResource(R.color.primary_blue_dark)
+                    isToday -> colorResource(R.color.text_primary)
                     else -> Color.Transparent
                 }
             )
@@ -250,7 +252,7 @@ fun CalendarDay(
         Text(
             text = day.toString(),
             color = when {
-                isSelected -> Color.White
+                isSelected -> colorResource(R.color.text_primary)
                 isToday -> MaterialTheme.colorScheme.primary
                 else -> Color.Black
             },

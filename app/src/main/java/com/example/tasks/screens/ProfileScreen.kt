@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -138,8 +139,11 @@ fun ProfileScreen () {
                 .padding(start = 50.dp, end = 50.dp, bottom = 25.dp )
                 .fillMaxWidth()
                 .height(48.dp),
-            shape = RoundedCornerShape(8.dp),
-
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(R.color.primary_blue_dark),
+                contentColor = colorResource(R.color.text_primary)
+            ),
+            shape = RoundedCornerShape(8.dp)
             ) {
             Text(
                 text = "Cerrar Sesión",

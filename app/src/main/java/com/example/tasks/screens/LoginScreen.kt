@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -43,6 +44,7 @@ import androidx.navigation.NavController
 import com.example.tasks.R
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.colorResource
 import com.example.tasks.navigate.AppRoute
 
 @Preview(showBackground = true)
@@ -121,7 +123,10 @@ fun LoginScreen(navController: NavController?= null, onLoginSuccess : () -> Unit
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
-            bac
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(R.color.primary_blue_dark),
+                contentColor = colorResource(R.color.text_primary)
+            )
         ) {
             Text("Iniciar Sesión")
         }

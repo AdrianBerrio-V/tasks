@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -45,12 +47,12 @@ import com.example.tasks.navigate.AppRoute
 @Preview(showBackground = true)
 @Composable
 fun registerPreview() {
-    //RegisterScreen(onRegisterSuccess = {})
+    RegisterScreen(onRegisterSuccess = {})
 }
 
 
 @Composable
-fun RegisterScreen(navController: NavController, onRegisterSuccess: () -> Unit){
+fun RegisterScreen(navController: NavController?= null, onRegisterSuccess: () -> Unit){
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -164,10 +166,14 @@ fun RegisterScreen(navController: NavController, onRegisterSuccess: () -> Unit){
 
         // Botón de registro
         Button(
-            onClick = { navController.navigate(AppRoute.MainContent.route) }, //ToDo Pilas que se debe hacer la funcion
+            onClick = { /*navController.navigate(AppRoute.MainContent.route) */}, //ToDo Pilas que se debe hacer la funcion
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(48.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(R.color.primary_blue_dark),
+                contentColor = colorResource(R.color.text_primary)
+            )
         ) {
             Text("Crear Cuenta")
         }
@@ -213,7 +219,7 @@ fun RegisterScreen(navController: NavController, onRegisterSuccess: () -> Unit){
             Text(
                 text = "Inicia sesión",
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable { navController.navigate(AppRoute.Login.route) }
+                modifier = Modifier.clickable { /*navController.navigate(AppRoute.Login.route)*/ }
             )
         }
     }
