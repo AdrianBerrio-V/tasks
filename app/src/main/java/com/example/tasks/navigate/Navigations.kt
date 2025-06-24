@@ -6,6 +6,9 @@ sealed class AppRoute(val route:String) {
     object Login : AppRoute("login_screen")
     object MainContent : AppRoute("main_content_screen")
     object Register : AppRoute("register_screen")
+    object TaskDetail : AppRoute("task_detail_screen/{taskId}"){
+        fun createRoute(taskId: Int) = "task_detail_screen/$taskId"
+    }
 }
 
 
