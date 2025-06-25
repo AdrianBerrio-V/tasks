@@ -197,6 +197,7 @@ fun RegisterScreen(navController: NavController, onRegisterSuccess: () -> Unit){
 
         // Botón de Google
         OutlinedButton(
+
             onClick = { /* ToDo Lógica de registro con Google */ },
             modifier = Modifier
                 .fillMaxWidth()
