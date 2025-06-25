@@ -14,14 +14,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.tasks.navigate.AppRoute
 import com.example.tasks.navigate.Screen
 import com.example.tasks.screens.LoginScreen
 import com.example.tasks.screens.MainScreenWithBottomNav
 import com.example.tasks.screens.RegisterScreen
+import com.example.tasks.screens.TaskDetailScreen
 import com.example.tasks.ui.theme.TasksTheme
 
 class MainActivity : ComponentActivity() {
@@ -60,6 +63,13 @@ fun AppNavigation() {
                     popUpTo(AppRoute.Login.route) { inclusive = true }
                 }
             }
+        }
+        composable (
+            route = AppRoute.TaskDetail.route,
+            arguments = listOf(navArgument("taskId") {type = NavType.IntType})
+        ){ navBackStackEntry ->
+            val taskId = navBackStackEntry.arguments?.getInt("taskId")
+            TaskDetailScreen(navController = navController, taskId = taskId)
         }
     }
 }

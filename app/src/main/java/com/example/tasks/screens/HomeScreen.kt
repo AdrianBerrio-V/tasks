@@ -38,7 +38,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.tasks.R
+import com.example.tasks.navigate.AppRoute
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -51,7 +54,7 @@ data class Task(
 )
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(rootNavController: NavController) {
     var tasks by remember {
         mutableStateOf(
             listOf(
@@ -98,6 +101,9 @@ fun HomeScreen() {
                             if (it.id == taskId) it.copy(isCompleted = isChecked)
                             else it
                         }
+                    },
+                    onTaskClick = { taskId -> // Pasa la ID de la tarea
+                        rootNavController.navigate(AppRoute.TaskDetail.createRoute(taskId))
                     }
                 )
             }
@@ -121,7 +127,8 @@ fun HomeScreen() {
 @Composable
 fun TaskItem(
     task: Task,
-    onTaskChecked: (Int, Boolean) -> Unit
+    onTaskChecked: (Int, Boolean) -> Unit,
+    onTaskClick: (Int) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -136,7 +143,7 @@ fun TaskItem(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .weight(1f)
-                .clickable { /*ToDo navigation top task*/ }
+                .clickable { onTaskClick(task.id)}
         ){
             Text(
                 text = task.title,
@@ -172,5 +179,5 @@ fun TaskItem(
 @Preview(showBackground = true)
 @Composable
 fun TaskManagerScreenPreview() {
-    HomeScreen()
+    HomeScreen(rootNavController = rememberNavController())
 }
