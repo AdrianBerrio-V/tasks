@@ -45,17 +45,18 @@ import com.example.tasks.R
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.colorResource
+import androidx.navigation.compose.rememberNavController
 import com.example.tasks.navigate.AppRoute
 
 @Preview(showBackground = true)
 @Composable
 fun LoginPreview() {
-    LoginScreen(onLoginSuccess = {})
+    LoginScreen(onLoginSuccess = {}, navController = rememberNavController())
 }
 
 
 @Composable
-fun LoginScreen(navController: NavController?= null, onLoginSuccess : () -> Unit){
+fun LoginScreen(navController: NavController, onLoginSuccess : () -> Unit){
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -119,7 +120,7 @@ fun LoginScreen(navController: NavController?= null, onLoginSuccess : () -> Unit
 
         // Botón de login
         Button(
-            onClick = { /*navController.navigate(AppRoute.MainContent.route)*/ }, //ToDo pilas que se debe crear la funcion
+            onClick = { navController.navigate(AppRoute.MainContent.route) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -172,7 +173,7 @@ fun LoginScreen(navController: NavController?= null, onLoginSuccess : () -> Unit
             Text(
                 text = "Regístrate",
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable { /*navController.navigate(AppRoute.Register.route)*/ }
+                modifier = Modifier.clickable { navController.navigate(AppRoute.Register.route) }
             )
         }
     }

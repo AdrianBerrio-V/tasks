@@ -41,18 +41,19 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.tasks.R
 import com.example.tasks.navigate.AppRoute
 
 @Preview(showBackground = true)
 @Composable
 fun registerPreview() {
-    RegisterScreen(onRegisterSuccess = {})
+    RegisterScreen(onRegisterSuccess = {}, navController = rememberNavController())
 }
 
 
 @Composable
-fun RegisterScreen(navController: NavController?= null, onRegisterSuccess: () -> Unit){
+fun RegisterScreen(navController: NavController, onRegisterSuccess: () -> Unit){
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -166,7 +167,7 @@ fun RegisterScreen(navController: NavController?= null, onRegisterSuccess: () ->
 
         // Botón de registro
         Button(
-            onClick = { /*navController.navigate(AppRoute.MainContent.route) */}, //ToDo Pilas que se debe hacer la funcion
+            onClick = { navController.navigate(AppRoute.MainContent.route) }, //ToDo lógica de registro
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -196,7 +197,7 @@ fun RegisterScreen(navController: NavController?= null, onRegisterSuccess: () ->
 
         // Botón de Google
         OutlinedButton(
-            onClick = { /* Lógica de registro con Google */ },
+            onClick = { /* ToDo Lógica de registro con Google */ },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)
@@ -219,7 +220,7 @@ fun RegisterScreen(navController: NavController?= null, onRegisterSuccess: () ->
             Text(
                 text = "Inicia sesión",
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable { /*navController.navigate(AppRoute.Login.route)*/ }
+                modifier = Modifier.clickable { navController.navigate(AppRoute.Login.route) }
             )
         }
     }
