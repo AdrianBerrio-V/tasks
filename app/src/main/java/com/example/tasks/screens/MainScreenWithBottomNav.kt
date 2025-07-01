@@ -27,13 +27,13 @@ import com.example.tasks.navigate.BottomNavItem
 @Preview
 @Composable
 fun MainPreview() {
-    MainScreenWithBottomNav()
+    MainScreenWithBottomNav(rememberNavController())
 }
 
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MainScreenWithBottomNav(rootNavController: NavController? = null) { // Recibe el NavController principal
+fun MainScreenWithBottomNav(rootNavController: NavController) { // Recibe el NavController principal
     val bottomNavController = rememberNavController() // NavController para la Bottom Navigation
     val navBackStackEntry by bottomNavController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -41,7 +41,7 @@ fun MainScreenWithBottomNav(rootNavController: NavController? = null) { // Recib
     Scaffold(
         bottomBar = {
             NavigationBar {
-                BottomNavItem.getItems().forEach { item -> // Itera sobre la lista de ítems
+                BottomNavItem.getItems().forEach { item ->
                     NavigationBarItem(
                         icon = { Icon(painterResource(item.icon), contentDescription = item.title) },
                         label = { Text(item.title) },
@@ -66,7 +66,7 @@ fun MainScreenWithBottomNav(rootNavController: NavController? = null) { // Recib
             startDestination = BottomNavItem.Home.route, // Define la pestaña inicial
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(BottomNavItem.Home.route) { HomeScreen() }
+            composable(BottomNavItem.Home.route) { HomeScreen(rootNavController = rootNavController) }
             composable(BottomNavItem.Calendar.route) { CalendarScreen() }
             composable(BottomNavItem.Profile.route) { ProfileScreen() }
         }
